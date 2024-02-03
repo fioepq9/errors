@@ -11,6 +11,8 @@
 go get -u github.com/fioepq9/errors
 ```
 
+> see https://github.com/fioepq9/errorsexamples/blob/main/quickstart/main.go
+
 ```go
 package main
 
@@ -54,38 +56,40 @@ func baz(method string) error {
 }
 
 func main() {
-	errors.C.EnableCleanFileName()
 	errors.C.Style = errors.StyleStack
 
 	fmt.Println(baz("new"))
+
+	fmt.Println("=====================================")
+
 	fmt.Println(baz("wrap"))
 }
 
 /*
 foo
-  main.go:12 (0x658aba) main.foo()
-  main.go:23 (0x658b7a) main.bar()
-  main.go:34 (0x658c3a) main.baz()
-  main.go:46 (0x658d24) main.main()
-  D:/apps/scoop/apps/go/current/src/runtime/proc.go:267 (0x605411) runtime.main()
-
+  D:/code/projects/errorsexamples/quickstart/main.go:12 (0x457eda) main.foo()
+  D:/code/projects/errorsexamples/quickstart/main.go:23 (0x457f9a) main.bar()
+  D:/code/projects/errorsexamples/quickstart/main.go:34 (0x45805a) main.baz()
+  D:/code/projects/errorsexamples/quickstart/main.go:45 (0x458133) main.main()
+  D:/apps/scoop/apps/go/current/src/runtime/proc.go:267 (0x405231) runtime.main()
+=====================================
 foo
-  main.go:12 (0x658aba) main.foo()
+  D:/code/projects/errorsexamples/quickstart/main.go:12 (0x457eda) main.foo()
 this is wrapeed foo
-  main.go:14 (0x658af5) main.foo()
+  D:/code/projects/errorsexamples/quickstart/main.go:14 (0x457f15) main.foo()
 this is wrapeed bar
-  main.go:25 (0x658bb5) main.bar()
+  D:/code/projects/errorsexamples/quickstart/main.go:25 (0x457fd5) main.bar()
 this is wrapeed baz
-  main.go:36 (0x658c75) main.baz()
-  main.go:47 (0x658d6e) main.main()
-  D:/apps/scoop/apps/go/current/src/runtime/proc.go:267 (0x605411) runtime.main()
-
+  D:/code/projects/errorsexamples/quickstart/main.go:36 (0x458095) main.baz()
+  D:/code/projects/errorsexamples/quickstart/main.go:49 (0x4581bb) main.main()
+  D:/apps/scoop/apps/go/current/src/runtime/proc.go:267 (0x405231) runtime.main()
 */
+
 ```
 
 ## Examples
 
-> see examples/stack/main.go
+> see https://github.com/fioepq9/errorsexamples/blob/main/stack/main.go
 
 ```bash
 ==== golang errors.New ====
@@ -106,9 +110,9 @@ this is wrapeed baz: this is wrapeed bar: this is wrapeed foo: foo
 
 ==== pkg errors.Wrap(stack trace) ====
 main.baz
-        D:/code/projects/errors/examples/stack/main.go:64
+        D:/code/projects/errorsexamples/stack/main.go:64
 main.main
-        D:/code/projects/errors/examples/stack/main.go:94
+        D:/code/projects/errorsexamples/stack/main.go:92
 runtime.main
         D:/apps/scoop/apps/go/current/src/runtime/proc.go:267
 runtime.goexit
@@ -125,34 +129,31 @@ this is wrapeed baz: this is wrapeed bar: this is wrapeed foo: foo
 
 ==== fioepq9 errors.New(stack style: default) ====
 foo
-  main.go:16 (0xfd1e36) main.foo()
-  main.go:35 (0xfd20b6) main.bar()
-  main.go:54 (0xfd22f6) main.baz()
-  main.go:111 (0xfd2b05) main.main()
-  D:/apps/scoop/apps/go/current/src/runtime/proc.go:267 (0xf664f1) runtime.main()
-
+  D:/code/projects/errorsexamples/stack/main.go:16 (0x1413f6) main.foo()
+  D:/code/projects/errorsexamples/stack/main.go:35 (0x141676) main.bar()
+  D:/code/projects/errorsexamples/stack/main.go:54 (0x1418b6) main.baz()
+  D:/code/projects/errorsexamples/stack/main.go:109 (0x1420bd) main.main()
+  D:/apps/scoop/apps/go/current/src/runtime/proc.go:267 (0xd6311) runtime.main()
 ===================================================
 
 ==== fioepq9 errors.Wrap(stack style: default) ====
 foo
-  main.go:16 (0xfd1e36) main.foo()
+  D:/code/projects/errorsexamples/stack/main.go:16 (0x1413f6) main.foo()
 this is wrapeed foo
-  main.go:18 (0xfd1e75) main.foo()
+  D:/code/projects/errorsexamples/stack/main.go:18 (0x141435) main.foo()
 this is wrapeed bar
-  main.go:37 (0xfd20f5) main.bar()
+  D:/code/projects/errorsexamples/stack/main.go:37 (0x1416b5) main.bar()
 this is wrapeed baz
-  main.go:56 (0xfd2335) main.baz()
-  main.go:115 (0xfd2bcd) main.main()
-  D:/apps/scoop/apps/go/current/src/runtime/proc.go:267 (0xf664f1) runtime.main()
-
+  D:/code/projects/errorsexamples/stack/main.go:56 (0x1418f5) main.baz()
+  D:/code/projects/errorsexamples/stack/main.go:113 (0x142187) main.main()
+  D:/apps/scoop/apps/go/current/src/runtime/proc.go:267 (0xd6311) runtime.main()
 ====================================================
 
 ==== fioepq9 errors.New(stack style: json) ====
-[{"message":"foo","frames":[{"function":"main.foo","file":"main.go","line":16},{"function":"main.bar","file":"main.go","line":35},{"function":"main.baz","file":"main.go","line":54},{"function":"main.main","file":"main.go","line":120},{"function":"runtime.main","file":"D:/apps/scoop/apps/go/current/src/runtime/proc.go","line":267}]}]
+[{"message":"foo","frames":[{"function":"main.foo","file":"D:/code/projects/errorsexamples/stack/main.go","line":16},{"function":"main.bar","file":"D:/code/projects/errorsexamples/stack/main.go","line":35},{"function":"main.baz","file":"D:/code/projects/errorsexamples/stack/main.go","line":54},{"function":"main.main","file":"D:/code/projects/errorsexamples/stack/main.go","line":118},{"function":"runtime.main","file":"D:/apps/scoop/apps/go/current/src/runtime/proc.go","line":267}]}]
 ================================================
 
 ==== fioepq9 errors.Wrap(stack style: json) ====
-[{"message":"foo","frames":[{"function":"main.foo","file":"main.go","line":16}]},{"message":"this is wrapeed foo","frames":[{"function":"main.foo","file":"main.go","line":18}]},{"message":"this is wrapeed bar","frames":[{"function":"main.bar","file":"main.go","line":37}]},{"message":"this is wrapeed baz","frames":[{"function":"main.baz","file":"main.go","line":56},{"function":"main.main","file":"main.go","line":124},{"function":"runtime.main","file":"D:/apps/scoop/apps/go/current/src/runtime/proc.go","line":267}]}]
+[{"message":"foo","frames":[{"function":"main.foo","file":"D:/code/projects/errorsexamples/stack/main.go","line":16}]},{"message":"this is wrapeed foo","frames":[{"function":"main.foo","file":"D:/code/projects/errorsexamples/stack/main.go","line":18}]},{"message":"this is wrapeed bar","frames":[{"function":"main.bar","file":"D:/code/projects/errorsexamples/stack/main.go","line":37}]},{"message":"this is wrapeed baz","frames":[{"function":"main.baz","file":"D:/code/projects/errorsexamples/stack/main.go","line":56},{"function":"main.main","file":"D:/code/projects/errorsexamples/stack/main.go","line":122},{"function":"runtime.main","file":"D:/apps/scoop/apps/go/current/src/runtime/proc.go","line":267}]}]
 =================================================
-
 ```
