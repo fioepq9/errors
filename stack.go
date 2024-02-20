@@ -45,7 +45,12 @@ func cleanStackFrames(stackFrames []StackFrame) {
 			}
 			jj = j - 1
 		}
-		stackFrames[i-1].Frames = a.Frames[:jj]
+		// If the frames are the same, remove the frames from the previous stack
+		if jj < 0 {
+			stackFrames[i-1].Frames = nil
+		} else {
+			stackFrames[i-1].Frames = a.Frames[:jj]
+		}
 	}
 
 	// Remove the runtime path
